@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Learn Retrofit</string>
+    <string name="title">title</string>
+    <string name="image">Image</string>
+</resources>
