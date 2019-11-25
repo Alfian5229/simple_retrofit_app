@@ -22,17 +22,16 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
     private List<RetroPhoto> dataList;
     private Context context;
 
-    public CustomAdapter(Context context,List<RetroPhoto> dataList){
+    public CustomAdapter(Context context, List<RetroPhoto> dataList){
         this.context = context;
         this.dataList = dataList;
     }
 
     static class CustomViewHolder extends RecyclerView.ViewHolder {
 
-        final View mView;
-
+        View mView;
         TextView txtTitle;
-        private ImageView coverImage;
+        ImageView coverImage;
 
         CustomViewHolder(View itemView) {
             super(itemView);
@@ -61,7 +60,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
                 .placeholder((R.drawable.ic_launcher_background))
                 .error(R.drawable.ic_launcher_background)
                 .into(holder.coverImage);
-
     }
 
     @Override

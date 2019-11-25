@@ -5,13 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.learnretrofit.adapter.CustomAdapter;
+import com.example.learnretrofit.databinding.ActivityMainBinding;
 import com.example.learnretrofit.model.RetroPhoto;
 import com.example.learnretrofit.network.GetDataService;
 import com.example.learnretrofit.network.RetrofitClientInstance;
@@ -24,17 +24,23 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    ProgressBar progressBar = findViewById(R.id.progressBar);
+    ProgressBar progressBar;
+    ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        progressBar = binding.progressBar;
 
         /*Create handle for the RetrofitInstance interface*/
-        GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
-        Call<List<RetroPhoto>> call = service.getAllPhotos();
-        call.enqueue(new Callback<List<RetroPhoto>>() {
+        RetrofitClientInstance
+                .getRetrofitInstance()
+                .create(GetDataService.class)
+                .getAllPhotos()
+                .enqueue(new Callback<List<RetroPhoto>>() {
             @Override
             public void onResponse(@NonNull Call<List<RetroPhoto>> call, @NonNull Response<List<RetroPhoto>> response) {
                 progressBar.setVisibility(View.GONE);
@@ -51,11 +57,9 @@ public class MainActivity extends AppCompatActivity {
 
     /*Method to generate List of data using RecyclerView with custom adapter*/
     private void generateDataList(List<RetroPhoto> photoList) {
-        RecyclerView recyclerView = findViewById(R.id.customRecyclerView);
-        CustomAdapter adapter = new CustomAdapter(this, photoList);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
+        RecyclerView recyclerView = binding.customRecyclerView;
+        recyclerView.setAdapter(new CustomAdapter(this, photoList));
+        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
     }
 
 }
