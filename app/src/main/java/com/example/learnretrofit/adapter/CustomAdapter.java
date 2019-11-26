@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.learnretrofit.R;
+import com.example.learnretrofit.databinding.CustomRowBinding;
 import com.example.learnretrofit.model.RetroPhoto;
 import com.jakewharton.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
